@@ -9,4 +9,10 @@ class InvitationController < ApplicationController
                                                             methods: %w[formula publication product offer_type] }] },
                      customer: { only: %i[Title] }]
   end
+
+  def visit
+    @invitation = Invitation.find_by(UniqueKey: params[:key])
+    @invitation.update(FirstVisitTime: Time.now)
+    render json: 'Success'
+  end
 end
