@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get "invitation/:key", to: "invitation#show"
-  get "invitation/:key/visit", to: "invitation#visit"
+  patch "invitation/:key/visit", to: "invitation#visit"
 end
