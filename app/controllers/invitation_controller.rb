@@ -1,6 +1,6 @@
 class InvitationController < ApplicationController
   def show
-    @invitation = Invitation.select(:SubmitTime, :IdTenderInvitation, :SendTime, :IdTender, :IdCustomerInfo)
+    @invitation = Invitation.select(:SubmitTime, :IdTenderInvitation, :SendTime, :IdTender, :IdCustomerInfo, :FirstVisitTime)
       .includes(:tender, :customer).find_by(UniqueKey: params[:key])
 
     render json: @invitation,
