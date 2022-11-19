@@ -7,7 +7,7 @@ class InvitationController < ApplicationController
     render json: @invitation,
            include: [tender: { only: %i[Subject ClosingDate TenderNo ClosingDate Cur Note InvitationText],
                                include: [tender_products:
-                                  { only: %w[IdCommodityProduct Qty PercentageInput AmountInput],
+                                  { only: %w[IdCommodityProduct IdTenderProduct Qty PercentageInput AmountInput],
                                     methods: %w[formula publication product offer_type] }] },
                      customer: { only: %i[Title] }]
   end
@@ -23,6 +23,7 @@ class InvitationController < ApplicationController
 
     offers = offers_params['offers']
     offers.each do |offer|
+      p offer
       if Offer.where(IdTenderInvitationItm: offer['IdTenderInvitationItm']).length.zero?
         @offer = Offer.new
         @offer.tender_product = TenderProduct.find(offer['IdTenderProduct'])
@@ -38,6 +39,8 @@ class InvitationController < ApplicationController
       @offer.PlusMinusAmount = offer['PlusMinusAmount']
       @offer.save
     end
+      @invitation.SubmitTime = Time.now
+      @invitation.save
 
     render json: 'Success'
   end
