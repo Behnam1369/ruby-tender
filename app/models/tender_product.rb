@@ -1,6 +1,6 @@
 class TenderProduct < ApplicationRecord
-  belongs_to :tender,
-             foreign_key: 'IdTender'
+  belongs_to :tender, foreign_key: 'IdTender'
+  has_many :offers, foreign_key: 'IdTenderProduct'
 
   def product
     id = self.IdCommodityProduct.split(',')[0]

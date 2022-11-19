@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   get "invitation/:key", to: "invitation#show"
   patch "invitation/:key/visit", to: "invitation#visit"
+  post "invitation/:key/offer", to: "invitation#offer"
 end
